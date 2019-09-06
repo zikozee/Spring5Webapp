@@ -29,18 +29,19 @@ public class Book {
 
 
     //@ManyToMany(cascade=CascadeType.ALL )
-    @ManyToMany//if you don't add this:cascade=CascadeType.ALL, use commented version
+    @ManyToMany(cascade=CascadeType.ALL)
     @JoinTable(name = "author_book", joinColumns = @JoinColumn(name = "book_id"),
     inverseJoinColumns = @JoinColumn(name = "author_id"))
     private Set<Author> authors = new HashSet<>();
 
-    @OneToOne
-    @JoinColumn(name = "publisher_id")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "publisher_id", referencedColumnName = "id")
     private Publisher publisher;
 
     public Book(String title, String isbn, Publisher publisher) {
         this.title = title;
         this.isbn = isbn;
+        this.publisher = publisher;
     }
 
 //    @Override
